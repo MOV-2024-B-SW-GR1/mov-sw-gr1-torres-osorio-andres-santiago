@@ -47,7 +47,6 @@ class ReparacionController(
         val vehiculo = vehiculoService.getVehiculoById(vehiculoId)
 
         if (vehiculo != null) {
-            // Ahora se pasa un solo objeto Vehiculo en lugar de una lista
             reparacionService.createReparacion(descripcion, costo, mecanico, vehiculo, fecha)
             println("Reparación creada exitosamente.")
         } else {
@@ -64,7 +63,7 @@ class ReparacionController(
             println("🚗 ${"Lista de vehículos".padEnd(30, ' ')} 🚗")
             println("──────────────────────────────────────────────────")
             vehiculos.forEach { vehiculo ->
-                println("ID: ${vehiculo.id}".padEnd(20) + "Marca: ${vehiculo.marca}".padEnd(20) + "Modelo: ${vehiculo.modelo}")
+                println("ID: ${vehiculo.id}".padEnd(20) + "Marca: ${vehiculo.marca}".padEnd(20) + "Modelo: ${vehiculo.modelo}" + " Año: ${vehiculo.año} " + "Color: ${vehiculo.color}")
             }
             println("──────────────────────────────────────────────────")
         }
@@ -78,7 +77,7 @@ class ReparacionController(
             println("🔧 ${"Lista de reparaciones".padEnd(30, ' ')} 🔧")
             println("──────────────────────────────────────────────────")
             reparaciones.forEach { reparacion ->
-                println("ID: ${reparacion.id}".padEnd(20) + "Descripción: ${reparacion.descripcion}".padEnd(40) + "Mecánico: ${reparacion.mecanico}")
+                println("ID: ${reparacion.id}".padEnd(20) + "Descripción: ${reparacion.descripcion}".padEnd(40) + "Mecánico: ${reparacion.mecanico}" + "Vehiculo: ${reparacion.vehiculo.marca}  ${reparacion.vehiculo.modelo}" )
             }
             println("──────────────────────────────────────────────────")
         }
@@ -86,7 +85,6 @@ class ReparacionController(
 
 
     fun actualizarVehiculo() {
-        // Mostrar el listado de vehículos disponibles con formato
         println("\n===================================")
         println("  Listado de vehículos disponibles:")
         println("===================================")
@@ -98,7 +96,6 @@ class ReparacionController(
                 println("-----------------------------------")
             }
 
-            // Pedir al usuario que ingrese el ID del vehículo a actualizar
             println("\nIngrese el ID del vehículo a actualizar:")
             val id = readLine()!!.toInt()
             val vehiculo = vehiculoService.getVehiculoById(id)
@@ -106,7 +103,6 @@ class ReparacionController(
             if (vehiculo != null) {
                 println("\nIngrese los nuevos datos del vehículo (deje vacío para mantener el actual):")
 
-                // Actualizar los campos del vehículo
                 print("Marca (${vehiculo.marca}): ")
                 val marca = readLine()!!.ifEmpty { vehiculo.marca }
 
@@ -119,7 +115,6 @@ class ReparacionController(
                 print("Color (${vehiculo.color}): ")
                 val color = readLine()!!.ifEmpty { vehiculo.color }
 
-                // Actualizar el vehículo
                 vehiculoService.updateVehiculo(Vehiculo(id, marca, modelo, año, color))
                 println("\n¡Vehículo actualizado exitosamente!")
             } else {
@@ -132,7 +127,6 @@ class ReparacionController(
 
 
     fun actualizarReparacion() {
-        // Mostrar el listado de reparaciones disponibles con formato
         println("\n===========================================")
         println("  Listado de reparaciones disponibles:")
         println("===========================================")
@@ -141,13 +135,11 @@ class ReparacionController(
         if (reparaciones.isNotEmpty()) {
             reparaciones.forEach { reparacion ->
                 println("ID: ${reparacion.id} | Descripción: ${reparacion.descripcion} | Costo: ${reparacion.costo} | Mecánico: ${reparacion.mecanico}")
-                // Mostrar el vehículo asociado a la reparación
                 val vehiculo = reparacion.vehiculo
                 println("  Vehículo asociado: ID: ${vehiculo.id} | Marca: ${vehiculo.marca} | Modelo: ${vehiculo.modelo}")
                 println("-------------------------------------------")
             }
 
-            // Pedir al usuario que ingrese el ID de la reparación a actualizar
             println("\nIngrese el ID de la reparación a actualizar:")
             val id = readLine()!!.toInt()
             val reparacion = reparacionService.getReparacionById(id)
@@ -155,7 +147,6 @@ class ReparacionController(
             if (reparacion != null) {
                 println("\nIngrese los nuevos datos de la reparación (deje vacío para mantener el actual):")
 
-                // Actualizar los campos de la reparación
                 print("Descripción (${reparacion.descripcion}): ")
                 val descripcion = readLine()!!.ifEmpty { reparacion.descripcion }
 
@@ -165,12 +156,10 @@ class ReparacionController(
                 print("Mecánico (${reparacion.mecanico}): ")
                 val mecanico = readLine()!!.ifEmpty { reparacion.mecanico }
 
-                // Mostrar el vehículo actualmente asociado a la reparación
                 println("\nVehículo actualmente asociado a la reparación:")
                 val vehiculoActual = reparacion.vehiculo
                 println("ID: ${vehiculoActual.id} | Marca: ${vehiculoActual.marca} | Modelo: ${vehiculoActual.modelo}")
 
-                // Mostrar los vehículos disponibles para cambiar
                 val vehiculosDisponibles = vehiculoService.getAllVehiculos()
                 println("\nVehículos disponibles para asociar a la reparación:")
                 vehiculosDisponibles.forEach { vehiculo ->
@@ -179,7 +168,6 @@ class ReparacionController(
                     }
                 }
 
-                // Pedir al usuario que ingrese un nuevo vehículo para asociar
                 println("\n¿Desea cambiar el vehículo asociado a esta reparación? (cambiar/no):")
                 val accion = readLine()!!
 
@@ -202,7 +190,6 @@ class ReparacionController(
                         }
                     }
                     "no" -> {
-                        // Si no se desea cambiar el vehículo, solo se actualizan los demás campos
                         val reparacionActualizada = reparacion.copy(
                             descripcion = descripcion,
                             costo = costo,
@@ -233,7 +220,6 @@ class ReparacionController(
             return
         }
 
-        // Mostrar el listado de vehículos
         println("🚗 ${"Lista de vehículos registrados".padEnd(30, ' ')} 🚗")
         println("──────────────────────────────────────────────────")
         vehiculos.forEach { vehiculo ->
@@ -241,11 +227,9 @@ class ReparacionController(
         }
         println("──────────────────────────────────────────────────")
 
-        // Solicitar el ID del vehículo a eliminar
         println("Ingrese el ID del vehículo a eliminar:")
         val id = readLine()!!.toInt()
 
-        // Eliminar el vehículo
         val vehiculoEliminado = vehiculos.firstOrNull { it.id == id }
         if (vehiculoEliminado != null) {
             vehiculoService.deleteVehiculo(id)
@@ -262,7 +246,6 @@ class ReparacionController(
             return
         }
 
-        // Mostrar el listado de reparaciones
         println("🔧 ${"Lista de reparaciones registradas".padEnd(30, ' ')} 🔧")
         println("──────────────────────────────────────────────────")
         reparaciones.forEach { reparacion ->
@@ -270,11 +253,9 @@ class ReparacionController(
         }
         println("──────────────────────────────────────────────────")
 
-        // Solicitar el ID de la reparación a eliminar
         println("Ingrese el ID de la reparación a eliminar:")
         val id = readLine()!!.toInt()
 
-        // Eliminar la reparación
         val reparacionEliminada = reparaciones.firstOrNull { it.id == id }
         if (reparacionEliminada != null) {
             reparacionService.deleteReparacion(id)

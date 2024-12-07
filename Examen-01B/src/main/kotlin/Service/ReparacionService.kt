@@ -7,33 +7,33 @@ import java.util.Date
 
 class ReparacionService(private val reparacionRepository: ReparacionRepository = ReparacionRepository()) {
 
-    // Crear una nueva reparación
+
     fun createReparacion(descripcion: String, costo: Double, mecanico: String, vehiculo: Vehiculo, fecha: Date): Reparacion {
-        // Generamos un ID único
+
         val reparacion = Reparacion(
-            id = reparacionRepository.generateId(), // Este método debe generar un ID único
+            id = reparacionRepository.generateId(),
             descripcion = descripcion,
             costo = costo,
             fecha = fecha,
             mecanico = mecanico,
-            vehiculo = vehiculo // Cambiamos de lista a un solo objeto Vehiculo
+            vehiculo = vehiculo
         )
-        reparacionRepository.save(reparacion) // Guardamos la reparación en el repositorio
+        reparacionRepository.save(reparacion)
         return reparacion
     }
 
-    // Obtener todas las reparaciones
+
     fun getAllReparaciones(): List<Reparacion> = reparacionRepository.getAll()
 
-    // Obtener una reparación por ID
+
     fun getReparacionById(id: Int): Reparacion? = reparacionRepository.getById(id)
 
-    // Actualizar una reparación existente
+
     fun updateReparacion(reparacion: Reparacion) {
         reparacionRepository.update(reparacion)
     }
 
-    // Eliminar una reparación por ID
+
     fun deleteReparacion(id: Int) {
         reparacionRepository.delete(id)
     }

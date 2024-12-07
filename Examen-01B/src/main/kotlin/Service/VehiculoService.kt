@@ -22,33 +22,30 @@ class VehiculoService(
     fun deleteVehiculo(id: Int) {
         vehiculoRepository.delete(id)
 
-        // Eliminar el vehículo de las reparaciones relacionadas
         val reparacionesRelacionadas = reparacionRepository.getAll().filter { reparacion ->
-            reparacion.vehiculo?.id == id // Ahora se compara con el único vehículo
+            reparacion.vehiculo?.id == id
         }
 
         reparacionesRelacionadas.forEach { reparacion ->
-            // Si la reparación solo tiene este vehículo, se elimina la reparación
             if (reparacion.vehiculo?.id == id) {
                 reparacionRepository.delete(reparacion.id)
             } else {
-                // Si la reparación tiene otro vehículo, no se hace nada ya que solo hay un vehículo por reparación
                 println("Reparación con ID ${reparacion.id} ya no tiene este vehículo.")
             }
         }
     }
 
     fun updateVehiculo(vehiculoActualizado: Vehiculo) {
-        // Actualizar el vehículo en la lista de vehículos
+
         vehiculoRepository.update(vehiculoActualizado)
 
-        // Actualizar las reparaciones que contienen este vehículo
+
         val reparacionesRelacionadas = reparacionRepository.getAll().filter { reparacion ->
-            reparacion.vehiculo?.id == vehiculoActualizado.id // Se busca el vehículo que se está actualizando
+            reparacion.vehiculo?.id == vehiculoActualizado.id
         }
 
         reparacionesRelacionadas.forEach { reparacion ->
-            // Actualizar el vehículo en la reparación
+
             val reparacionActualizada = reparacion.copy(vehiculo = vehiculoActualizado)
             reparacionRepository.update(reparacionActualizada)
         }

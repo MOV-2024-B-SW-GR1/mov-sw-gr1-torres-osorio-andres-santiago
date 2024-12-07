@@ -11,7 +11,7 @@ class ReparacionRepository {
 
     private val filePath = "src/main/resources/json/reparaciones.json"
 
-    // Configuramos Gson para manejar fechas correctamente
+
     private val gson: Gson = GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create()
     private val reparacionListType = object : TypeToken<List<Reparacion>>() {}.type
 
