@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_operaciones_reparaciones"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/text_descripcion_reparaciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="144dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Descripcion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/text_costo_reparaciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="costo"
+        app:layout_constraintEnd_toEndOf="@+id/text_descripcion_reparaciones"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/text_descripcion_reparaciones"
+        app:layout_constraintTop_toBottomOf="@+id/text_descripcion_reparaciones" />
+
+    <EditText
+        android:id="@+id/text_fecha_reparaciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="2000-12-17"
+        app:layout_constraintEnd_toEndOf="@+id/text_costo_reparaciones"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/text_costo_reparaciones"
+        app:layout_constraintTop_toBottomOf="@+id/text_costo_reparaciones" />
+
+    <EditText
+        android:id="@+id/text_mecanico_reparaciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="mecanico"
+        app:layout_constraintEnd_toEndOf="@+id/text_fecha_reparaciones"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/text_fecha_reparaciones"
+        app:layout_constraintTop_toBottomOf="@+id/text_fecha_reparaciones" />
+
+    <EditText
+        android:id="@+id/text_numero_reparaciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Numero de Vehiculo"
+        app:layout_constraintEnd_toEndOf="@+id/text_mecanico_reparaciones"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/text_mecanico_reparaciones"
+        app:layout_constraintTop_toBottomOf="@+id/text_mecanico_reparaciones" />
+
+    <Button
+        android:id="@+id/btn_guardar_reparaciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:text="Guardar"
+        app:layout_constraintEnd_toEndOf="@+id/text_numero_reparaciones"
+        app:layout_constraintStart_toStartOf="@+id/text_numero_reparaciones"
+        app:layout_constraintTop_toBottomOf="@+id/text_numero_reparaciones" />
+</androidx.constraintlayout.widget.ConstraintLayout>
