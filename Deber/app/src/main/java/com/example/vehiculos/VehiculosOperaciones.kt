@@ -7,10 +7,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.vehiculos.R
-import com.example.vehiculos.Vehiculo
-import com.example.vehiculos.VehiculoReparacionDatabase
-import com.example.vehiculos.bdVehiculoReparacion
 import com.google.android.material.snackbar.Snackbar
 
 class VehiculosOperaciones : AppCompatActivity() {
@@ -43,12 +39,15 @@ class VehiculosOperaciones : AppCompatActivity() {
         val inputModelo = findViewById<EditText>(R.id.text_modelo_vehiculo)
         val inputAno = findViewById<EditText>(R.id.text_año_vehiculo)
         val inputColor = findViewById<EditText>(R.id.text_color_vehiculo)
-
+        val inputLatitud = findViewById<EditText>(R.id.text_latitud)
+        val inputLongitud = findViewById<EditText>(R.id.text_longitud)
         if (modo == "editar" && vehiculo != null) {
             inputMarca.setText(vehiculo.marca)
             inputModelo.setText(vehiculo.modelo)
             inputAno.setText(vehiculo.año.toString())
             inputColor.setText(vehiculo.color)
+            inputLatitud.setText(vehiculo.latitud.toString())
+            inputLongitud.setText(vehiculo.longitud.toString())
             botonGuardarVehiculo.text = "Actualizar"
         } else {
             botonGuardarVehiculo.text = "Crear"
@@ -59,6 +58,12 @@ class VehiculosOperaciones : AppCompatActivity() {
             val modelo = inputModelo.text.toString().trim()
             val anoString = inputAno.text.toString().trim()
             val color = inputColor.text.toString().trim()
+
+            val latitud = inputLatitud.text.toString().trim()
+            val longitud = inputLongitud.text.toString().trim()
+            val latitudDouble: Double = latitud.toDoubleOrNull() ?: 0.0
+            val longitudDouble: Double = longitud.toDoubleOrNull() ?: 0.0
+
 
             if (marca.isEmpty() || modelo.isEmpty() || anoString.isEmpty() || color.isEmpty()) {
                 mostrarSnackbar("Por favor, llene todos los campos.")
@@ -76,7 +81,9 @@ class VehiculosOperaciones : AppCompatActivity() {
                     marca,
                     modelo,
                     ano,
-                    color
+                    color,
+                    latitudDouble,
+                    longitudDouble
                 )
 
                 if (respuesta == true) {
@@ -92,7 +99,9 @@ class VehiculosOperaciones : AppCompatActivity() {
                     marca,
                     modelo,
                     ano,
-                    color
+                    color,
+                    latitudDouble,
+                    longitudDouble
                 )
 
                 if (respuesta == true) {

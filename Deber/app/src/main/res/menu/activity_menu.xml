@@ -12,4 +12,7 @@
     <item
         android:id="@+id/verReparaciones"
         android:title="Ver Reparaciones" />
+    <item
+        android:id="@+id/ubicacion_mapa"
+        android:title="Ver Ubicacion del Vehiculo" />
 </menu>

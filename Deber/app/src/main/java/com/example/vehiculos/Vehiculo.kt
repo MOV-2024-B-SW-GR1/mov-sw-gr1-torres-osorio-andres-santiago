@@ -8,17 +8,21 @@ class Vehiculo (
     val marca: String,
     val modelo: String,
     val año: Int,
-    val color: String): Parcelable {
+    val color: String,
+    val latitud: Double,
+    val longitud: Double): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readInt(),
         parcel.readString()!!,
+        parcel.readDouble(),
+        parcel.readDouble()
     ) {
     }
     override fun toString(): String {
-        return modelo
+        return "Modelo: $modelo Marca: $marca  Año: $año "
     }
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)
@@ -26,6 +30,8 @@ class Vehiculo (
         parcel.writeString(modelo)
         parcel.writeInt(año)
         parcel.writeString(color)
+        parcel.writeDouble(latitud)
+        parcel.writeDouble(longitud)
     }
     override fun describeContents(): Int {
         return 0

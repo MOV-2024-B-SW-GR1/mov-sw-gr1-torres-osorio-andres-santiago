@@ -52,10 +52,8 @@ class listVehiculos : AppCompatActivity() {
         menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?
     ) {
         super.onCreateContextMenu(menu, v, menuInfo)
-        // llenamos opciones del menu
         val inflater = menuInflater
         inflater.inflate(R.menu.activity_menu, menu)
-        // obtener id
         val info = menuInfo as AdapterView.AdapterContextMenuInfo
         val posicion = info.position
         posicionItemSeleccionado = posicion
@@ -64,7 +62,7 @@ class listVehiculos : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1 && resultCode == RESULT_OK) {
-            cargarDatosDesdeBaseDeDatos() // Refresca la lista
+            cargarDatosDesdeBaseDeDatos()
         }
     }
 
@@ -82,6 +80,11 @@ class listVehiculos : AppCompatActivity() {
             R.id.verReparaciones -> {
                 val vehiculoSeleccionado = listaVehiculos[posicionItemSeleccionado]
                 irActividad(listReparaciones::class.java, vehiculoSeleccionado)
+                return true
+            }
+            R.id.ubicacion_mapa -> {
+                val vehiculoSeleccionado = listaVehiculos[posicionItemSeleccionado]
+                irActividad(GGoogleMaps::class.java, vehiculoSeleccionado)
                 return true
             }
             else -> super.onContextItemSelected(item)
@@ -111,7 +114,7 @@ class listVehiculos : AppCompatActivity() {
                 val eliminado = bdVehiculoReparacion.tablaVehiculoReparacion?.eliminarVehiculo(id)
                 if (eliminado == true) {
                     mostrarSnackbar("Vehículo eliminado correctamente.")
-                    cargarDatosDesdeBaseDeDatos() // Refrescar la lista
+                    cargarDatosDesdeBaseDeDatos()
                 } else {
                     mostrarSnackbar("Error al eliminar el vehículo.")
                 }

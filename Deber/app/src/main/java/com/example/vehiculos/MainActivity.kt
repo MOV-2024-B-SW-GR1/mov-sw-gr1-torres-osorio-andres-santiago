@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
         bdVehiculoReparacion.tablaVehiculoReparacion = VehiculoReparacionDatabase(this)
 
         val botonListView = findViewById<Button>(R.id.btn_ver_vehiculos)
@@ -27,6 +26,7 @@ class MainActivity : AppCompatActivity() {
                 irActividad(listVehiculos::class.java)
             }
     }
+
 
     fun irActividad(
         clase: Class<*>

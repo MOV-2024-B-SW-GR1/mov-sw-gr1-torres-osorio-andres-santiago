@@ -15,7 +15,7 @@ class VehiculoReparacionDatabase(
     context: Context?
 ): SQLiteOpenHelper(
     context,
-    "vehiculo_reparacion_db",
+    "vehiculo_reparacion_db1",
     null,
     1
 ) {
@@ -28,7 +28,9 @@ class VehiculoReparacionDatabase(
                     marca VARCHAR(50),
                     modelo VARCHAR(50),
                     año INTEGER,
-                    color VARCHAR(20)
+                    color VARCHAR(20),
+                    latitud REAL,
+                    longitud REAL
                 )
             """.trimIndent()
         db?.execSQL(scriptSQLCrearTablaVehiculo)
@@ -48,7 +50,13 @@ class VehiculoReparacionDatabase(
         db?.execSQL(scriptSQLCrearTablaReparacion)
     }
 
-    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {}
+    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+        // Eliminar la tabla y crearla de nuevo con la nueva estructura
+        db?.execSQL("DROP TABLE IF EXISTS REPARACION")
+        db?.execSQL("DROP TABLE IF EXISTS VEHICULO")
+
+        onCreate(db)
+    }
 
     // Vehiculo
     fun obtenerTodosLosVehiculos(): List<Vehiculo> {
@@ -64,8 +72,10 @@ class VehiculoReparacionDatabase(
                 val modelo = resultadoConsultaLectura.getString(2)
                 val año = resultadoConsultaLectura.getInt(3)
                 val color = resultadoConsultaLectura.getString(4)
+                val latitud = resultadoConsultaLectura.getDouble(5)
+                val longitud = resultadoConsultaLectura.getDouble(6)
 
-                val vehiculo = Vehiculo(id, marca, modelo, año, color)
+                val vehiculo = Vehiculo(id, marca, modelo, año, color,latitud,longitud)
                 listaVehiculos.add(vehiculo)
             } while (resultadoConsultaLectura.moveToNext())
         }
@@ -74,13 +84,15 @@ class VehiculoReparacionDatabase(
         return listaVehiculos
     }
 
-    fun crearVehiculo(marca: String, modelo: String, año: Int, color: String): Boolean {
+    fun crearVehiculo(marca: String, modelo: String, año: Int, color: String, latitud: Double, longitud: Double): Boolean {
         val baseDatosEscritura = writableDatabase
         val valoresGuardar = ContentValues()
         valoresGuardar.put("marca", marca)
         valoresGuardar.put("modelo", modelo)
         valoresGuardar.put("año", año)
         valoresGuardar.put("color", color)
+        valoresGuardar.put("latitud", latitud)
+        valoresGuardar.put("longitud", longitud)
         val resultadoGuardar = baseDatosEscritura.insert("VEHICULO", null, valoresGuardar)
         baseDatosEscritura.close()
         return resultadoGuardar != -1L
@@ -94,13 +106,15 @@ class VehiculoReparacionDatabase(
         return resultadoEliminar != -1
     }
 
-    fun actualizarVehiculo(id: Int, marca: String, modelo: String, año: Int, color: String): Boolean {
+    fun actualizarVehiculo(id: Int, marca: String, modelo: String, año: Int, color: String,latitud: Double, longitud: Double): Boolean {
         val baseDatosEscritura = writableDatabase
         val valoresAActualizar = ContentValues()
         valoresAActualizar.put("marca", marca)
         valoresAActualizar.put("modelo", modelo)
         valoresAActualizar.put("año", año)
         valoresAActualizar.put("color", color)
+        valoresAActualizar.put("latitud", latitud)
+        valoresAActualizar.put("longitud", longitud)
         val parametrosConsultaActualizar = arrayOf(id.toString())
         val resultadoActualizar = baseDatosEscritura.update("VEHICULO", valoresAActualizar, "id=?", parametrosConsultaActualizar)
         baseDatosEscritura.close()
@@ -190,4 +204,5 @@ class VehiculoReparacionDatabase(
 
         return resultadoActualizar != -1
     }
+
 }

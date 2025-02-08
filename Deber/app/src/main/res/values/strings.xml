@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">vehiculos</string>
+    <string name="title_activity_ggoogle_maps_placeholder">GGoogleMapsPlaceholder</string>
+    <string name="google_maps_api_key">@string/google_maps_api_key</string>
 </resources>
