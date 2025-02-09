@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "226386110643",
+    "project_id": "proyecto-polimercado",
+    "storage_bucket": "proyecto-polimercado.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:226386110643:android:57b129791c750e172fa8c6",
+        "android_client_info": {
+          "package_name": "com.example.proyecto"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0SDQCcO8ivOPb9kE5VGSCZbeBIOp0N5E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
